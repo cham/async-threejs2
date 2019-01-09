@@ -1,0 +1,24 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>04 - Postprocessing - Glitch</title>
+    <script src="../three.min.js"></script>
+    <script src="../02-geometry/OBJLoader.js"></script>
+    <script src="./CopyShader.js"></script>
+		<script src="./DigitalGlitch.js"></script>
+		<script src="./EffectComposer.js"></script>
+		<script src="./RenderPass.js"></script>
+		<script src="./MaskPass.js"></script>
+		<script src="./ShaderPass.js"></script>
+		<script src="./GlitchPass.js"></script>
+    <script src="../dat.gui.min.js"></script>
+    <link href="../examples-base.css" rel="stylesheet"></link>
+  </head>
+  <body>
+    <script src="./04-glitch.js"></script>
+    <script>
+    (function(){var script=document.createElement('script');script.onload=function(){var stats=new Stats();document.body.appendChild(stats.dom);requestAnimationFrame(function loop(){stats.update();requestAnimationFrame(loop)});};script.src='//mrdoob.github.io/stats.js/build/stats.min.js';document.head.appendChild(script);})()
+    </script>
+  </body>
+</html>

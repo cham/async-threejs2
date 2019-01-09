@@ -1,0 +1,742 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>ThreeJS</title>
+    <link href="http://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet" type="text/css">
+    <link href="http://fonts.googleapis.com/css?family=Pacifico" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="highlight.min.css">
+    <style>
+    html {
+        height: 100%;
+        font-family: sans-serif;
+    }
+    h2 {
+        font-size: 5vmin;
+        font-weight: normal;
+        font-style: italic;
+    }
+    h3 {
+      font-size: 2vmin;
+    }
+    body {
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        height: 100%;
+        font-size: 1.6vmin;
+        font-family: 'Open Sans', sans-serif;
+    }
+    iframe , section {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        border: 0;
+        z-index: 0;
+    }
+    section {
+        display: none;
+    }
+    ul {
+        padding: 0;
+        margin: 0;
+    }
+    ul li {
+        list-style-type: none;
+    }
+    ul ol li {
+        list-style-type: decimal;
+    }
+    a {
+      text-decoration: none;
+      color: #fff;
+    }
+    .content {
+        z-index: 1;
+        position: absolute;
+        top: 0;
+        left: 0;
+        background: #333;
+        color: #fff;
+        display: none;
+    }
+    .transitionable {
+        transition: left 0.75s ease-in-out;
+    }
+    .subsection {
+        padding: 12px;
+        display: none;
+    }
+    .content .subsection:first-of-type {
+        display: block;
+    }
+    .intro {
+        background: #c00;
+        height: 100%;
+        text-align: center;
+    }
+    .intro h2 {
+        position: relative;
+        top: 50%;
+        transform: translateY(-50%);
+        color: #fff;
+        font-family: Pacifico, serif;
+    }
+    .intro h3 {
+        position: relative;
+        top: 50%;
+        transform: translateY(-50%);
+        color: #fff;
+    }
+    .always-invisible {
+        visibility: hidden;
+        padding: 0;
+    }
+    </style>
+  </head>
+  <body>
+
+    <section class="intro">
+        <h2>Learning Three.js</h2>
+        <h3>Dan Neame <a href="https://twitter.com/cham">@cham</a></h3>
+        <h3><a href="github.com/cham/async-threejs">github.com/cham/async-threejs</a> <a href="http://dan.nea.me">dan.nea.me</a></h3>
+    </section>
+
+    <section class="intro">
+        <h2>Who am I?</h2>
+    </section>
+    <section>
+        <iframe data-src="http://dan.nea.me" width="100%" height="100%" wmode="transparent"></iframe>
+        <div class="content">
+            <div class="subsection">
+                <ul>
+                    <li>Dan Neame</li>
+                    <li>@cham on twitter</li>
+                    <li>http://dan.nea.me</li>
+                    <li>Freelance developer</li>
+                </ul>
+            </div>
+            <div class="subsection always-invisible"></div>
+        </div>
+    </section>
+
+    <section class="intro">
+        <h2>What is Three.js?</h2>
+    </section>
+    <section>
+        <iframe data-src="https://www.youtube.com/embed/LdKn1aOP7IQ?start=120&amp;autoplay=1&amp;autohide=1" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" width="100%" height="100%" wmode="transparent"></iframe>
+        <div class="content">
+            <div class="subsection">
+                <ul>
+                    <li>Three.js is a JavaScript library that makes working with WebGL simpler</li>
+                    <li>It gives you a higher abstraction over raw WebGL code</li>
+                    <li>This allows you to work with Spheres and Cubes instead of Vertices and Matrixes</li>
+                    <li>This means you can spend more time working on the visualisation or application you want to build</li>
+                </ul>
+            </div>
+            <div class="subsection">
+                <ul>
+                    <li>It's an open source project, built and maintained by Ricardo Cabello, aka "Mr Doob"</li>
+                    <li>You can find it on GitHub - https://github.com/mrdoob/three.js</li>
+                </ul>
+            </div>
+            <div class="subsection always-invisible"></div>
+        </div>
+    </section>
+
+    <section class="intro">
+        <h2>Basics</h2>
+    </section>
+    <section>
+        <iframe data-src="./01-basics/index.html" width="100%" height="100%" wmode="transparent"></iframe>
+        <div class="content">
+            <div class="subsection">
+                <ul>
+                    <li>Scene</li>
+                </ul>
+<pre><code class="js">
+    const scene = new THREE.Scene()
+
+</code></pre>
+            </div>
+            <div class="subsection">
+                <ul>
+                    <li>Renderer</li>
+                </ul>
+<pre><code class="js">
+    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true })
+
+</code></pre>
+            </div>
+            <div class="subsection">
+                <ul>
+                    <li>Camera</li>
+                </ul>
+<pre><code class="js">
+    const camera = new THREE.PerspectiveCamera(40, window.innerWidth / window.innerHeight, 1, 20000)
+
+</code></pre>
+            </div>
+            <div class="subsection">
+                <ul>
+                    <li>Lights</li>
+                </ul>
+<pre><code class="js">
+    const spotlight = new THREE.SpotLight(0xEECCAA, 1)
+
+</code></pre>
+            </div>
+            <div class="subsection">
+                <ul>
+                    <li>Meshes</li>
+                </ul>
+<pre><code class="js">
+    const mesh = new THREE.Mesh(
+      new THREE.TorusKnotGeometry(20, 5, 200, 16, 3, 2),
+      new THREE.MeshPhongMaterial({ color: 0xCC0000 })
+    )
+
+    const floorMesh = new THREE.Mesh(
+      new THREE.PlaneGeometry(2000, 2000),
+      new THREE.MeshPhongMaterial({ color: 0xFFFFFF })
+    )
+</code></pre>
+            </div>
+            <div class="subsection">
+                <ul>
+                    <li>FPS counter</li>
+                    <li>https://github.com/mrdoob/stats.js/</li>
+                    <li>There's also a bookmarklet</li>
+                </ul>
+<pre><code class="js">
+  const stats = new Stats()
+  stats.showPanel()
+  document.body.appendChild(stats.dom)
+
+  const animate = () => {
+    requestAnimationFrame(animate)
+
+    stats.begin()
+    // monitored code goes here
+    stats.end()
+  }
+  requestAnimationFrame(animate)
+
+</code></pre>
+            </div>
+            <div class="subsection">
+                <ul>
+                    <li>dat.GUI</li>
+                    <li>https://github.com/dataarts/dat.gui</li>
+                </ul>
+<pre><code class="js">
+  const gui = new dat.GUI()
+  const config = {
+    cameraDistance: 200,
+    spotlightColor: 0xEECCAA
+  }
+
+  gui.add(config, 'cameraDistance', 0, 1000)
+  gui.addColor(config, 'spotlightColor')
+
+</code></pre>
+            </div>
+            <div class="subsection">
+                <ul>
+                    <li>Putting it all together</li>
+                </ul>
+<pre><code class="js">
+  renderer.setSize(window.innerWidth, window.innerHeight)
+  renderer.shadowMapEnabled = true
+  renderer.shadowMapType = THREE.PCFSoftShadowMap
+
+  spotlight.position.set(0, 100, 100)
+  spotlight.castShadow = true
+  spotlight.shadowMapWidth = 1024
+  spotlight.shadowMapHeight = 1024
+
+  mesh.position.set(0, 30, 0)
+  mesh.castShadow = true
+  mesh.receiveShadow = true
+
+  floorMesh.rotation.x = -Math.PI / 2
+  floorMesh.receiveShadow = true
+
+  scene.add(camera)
+  scene.add(spotlight)
+  scene.add(mesh)
+  scene.add(floorMesh)
+
+  const animate = (t) => {
+    requestAnimationFrame(animate)
+    const speed = 0.0005
+    camera.position.set(Math.sin(t * speed) * config.cameraDistance, 100, Math.cos(t * speed) * config.cameraDistance)
+    camera.lookAt(0, 0, 0)
+    spotlight.color = new THREE.Color(config.spotlightColor)
+    renderer.render(scene, camera)
+  }
+
+  document.body.appendChild(renderer.domElement)
+  requestAnimationFrame(animate)
+
+</code></pre>
+            </div>
+            <div class="subsection always-invisible"></div>
+        </div>
+    </section>
+    <section>
+        <iframe data-src="./01-basics/circular-motion.html" width="100%" height="100%" wmode="transparent"></iframe>
+    </section>
+
+    <section class="intro">
+        <h2>Geometry</h2>
+    </section>
+    <section>
+        <iframe data-src="./02-geometry/vertices.html" width="100%" height="100%" wmode="transparent"></iframe>
+        <div class="content">
+            <div class="subsection">
+                <ul>
+                    <li>Vertices, edges</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+    <section>
+        <iframe data-src="./02-geometry/loading-objects.html" width="100%" height="100%" wmode="transparent"></iframe>
+        <div class="content">
+            <div class="subsection">
+                <ul>
+                    <li>Loading objects</li>
+                </ul>
+<pre><code class="js">
+  const material = new THREE.MeshStandardMaterial({ color: 0xCC0000, roughness: 0.2, metalness: 0.5 })
+  const loader = new THREE.OBJLoader()
+  loader.load(
+    'Z3.obj',
+    (obj) => {
+      scene.add(obj)
+      obj.traverse((child) => {
+        if (child instanceof THREE.Mesh) {
+          child.material = material
+        }
+      })
+    }
+  )
+</code></pre>
+            </div>
+            <div class="subsection always-invisible"></div>
+        </div>
+    </section>
+    <section>
+        <iframe data-src="http://dan.nea.me/demos/terrain/" width="100%" height="100%" wmode="transparent"></iframe>
+        <div class="content">
+            <div class="subsection">
+                <ul>
+                    <li>Manipulating vertices</li>
+                </ul>
+<pre><code class="js">
+  const tick = () => {
+    requestAnimationFrame(tick)
+
+    const geometry = terrain.children[0].geometry
+    const vertices = geometry.vertices
+    const movementRange = 2
+    const segments = 48
+
+    vertices[Math.floor(Math.random() * vertices.length)].active = true
+
+    for (let i = 0; i < vertices.length; i++) {
+      if(!vertices[i].active){
+        continue
+      }
+      if(!vertices[i].accel){
+        vertices[i].accel = Math.random() * movementRange - movementRange / 2
+      }
+      vertices[i].accel *= 0.98
+      vertices[i].z += vertices[i].accel
+      if(vertices[i-1]) {
+        vertices[i-1].z += vertices[i].accel
+      }
+      if(vertices[i+1]) {
+        vertices[i+1].z += vertices[i].accel
+      }
+      if(vertices[i - segments]) {
+        vertices[i - segments].z += vertices[i].accel
+      }
+      if(vertices[i + segments]) {
+        vertices[i + segments].z += vertices[i].accel
+      }
+    }
+
+    geometry.verticesNeedUpdate = true
+    renderer.render(scene, camera)
+  }
+  requestAnimationFrame(tick)
+
+</code></pre>
+            </div>
+            <div class="subsection always-invisible"></div>
+        </div>
+    </section>
+    <section>
+        <iframe data-src="./02-geometry/mp3vis.html" width="100%" height="100%" wmode="transparent"></iframe>
+        <div class="content">
+            <div class="subsection">
+                <ul>
+                    <li>MP3 visualiser</li>
+                </ul>
+            </div>
+            <div class="subsection">
+                <ul>
+                    <li>Read in audio and stream the waveform data</li>
+                </ul>
+<pre><code class="js">
+  const planeSize = 64
+  const audioContext = new AudioContext()
+  const analyser = audioContext.createAnalyser()
+  analyser.connect(audioContext.destination)
+  analyser.fftSize = planeSize * 2
+  const source = audioContext.createBufferSource()
+  source.connect(analyser)
+
+  const xhr = new XMLHttpRequest()
+  xhr.open('GET', './audio.mp3')
+  xhr.responseType = 'arraybuffer'
+  xhr.onload = () => {
+    audioContext.decodeAudioData(xhr.response, (buffer) => {
+      source.buffer = buffer
+      const frame = new Uint8Array(planeSize * 2)
+      const audioTick = () => {
+        requestAnimationFrame(audioTick)
+        analyser.getByteFrequencyData(frame)
+        console.log(frame)
+      }
+      requestAnimationFrame(audioTick)
+      source.start()
+    })
+  }
+  xhr.send()
+
+</code></pre>
+        </div>
+        <div class="subsection">
+            <ul>
+                <li>Create geometry from a regular grid</li>
+            </ul>
+<pre><code class="js">
+  const mesh = new THREE.Mesh(
+    new THREE.Geometry(),
+    new THREE.MeshLambertMaterial({ color: 0xCC0000, side: THREE.DoubleSide })
+  )
+
+  const addFace = (geometry, bottomLeftVertex, topRightVertex) => {
+    geometry.faces.push(new THREE.Face3(bottomLeftVertex, bottomLeftVertex+1, topRightVertex))
+    geometry.faces.push(new THREE.Face3(topRightVertex, topRightVertex-1, bottomLeftVertex))
+  }
+
+  for (let i = 0; i < planeSize; i++) {
+    for (let j = 0; j < planeSize; j++) {
+      mesh.geometry.vertices.push(new THREE.Vector3(j, 0, i));
+    }
+  }
+  for (let i = 0; i < planeSize - 1; i++) {
+    for (let j = 0; j < planeSize - 1; j++) {
+      let rowOffset = i * planeSize
+      addFace(mesh.geometry, rowOffset + j, rowOffset + planeSize + j + 1)
+    }
+  }
+  mesh.castShadow = true
+  mesh.receiveShadow = true
+  mesh.geometry.computeFaceNormals()
+  scene.add(mesh)
+
+</code></pre>
+    </div>
+    <div class="subsection">
+        <ul>
+            <li>Apply audio frame to first row of vertices on the geometry</li>
+        </ul>
+<pre><code class="js">
+  const audioTick = () => {
+    requestAnimationFrame(audioTick)
+    analyser.getByteFrequencyData(frame)
+    const vertices = mesh.geometry.vertices
+    for (let i = 0; i < planeSize; i++) {
+      vertices[i].y = frame[i] * scale
+    }
+    mesh.geometry.verticesNeedUpdate = true
+  }
+
+</code></pre>
+      </div>
+      <div class="subsection">
+          <ul>
+              <li>Copy the values down the rows of the geometry</li>
+          </ul>
+<pre><code class="js">
+  const audioTick = () => {
+    requestAnimationFrame(audioTick)
+    analyser.getByteFrequencyData(frame)
+    const vertices = mesh.geometry.vertices
+    for (let i = 0; i < planeSize; i++) {
+      vertices[i].y = frame[i] * scale
+    }
+    for (let i = planeSize - 1; i > 0; i--){
+        for (let j = 0; j < planeSize; j++){
+            let offset = i * planeSize
+            let prevRow = (i - 1) * planeSize
+            vertices[offset + j].y = vertices[prevRow + j].y
+        }
+    }
+    mesh.geometry.verticesNeedUpdate = true
+  }
+
+  </code></pre>
+        </div>
+        <div class="subsection always-invisible"></div>
+    </section>
+    <section>
+        <iframe data-src="http://dan.nea.me/audiolandscape/" width="100%" height="100%" wmode="transparent"></iframe>
+    </section>
+
+    <section class="intro">
+        <h2>Materials</h2>
+    </section>
+    <section>
+        <iframe data-src="./03-materials/multimaterials.html" width="100%" height="100%" wmode="transparent"></iframe>
+        <div class="content">
+            <div class="subsection">
+                <ul>
+                    <li>Multimaterials</li>
+                </ul>
+            </div>
+        </div>
+        <div class="subsection always-invisible"></div>
+    </section>
+    <section>
+        <iframe data-src="./03-materials/bitmaps.html" width="100%" height="100%" wmode="transparent"></iframe>
+        <div class="content">
+            <div class="subsection">
+                <ul>
+                    <li>Textures</li>
+                </ul>
+            </div>
+            <div class="subsection">
+                <ul>
+                    <li>Texure maps</li>
+                </ul>
+<pre><code class="js">
+  new THREE.MeshPhongMaterial({
+    map: new THREE.TextureLoader().load('./bitmap.jpg')
+  })
+
+</code></pre>
+            </div>
+            <div class="subsection">
+                <ul>
+                    <li>Alpha maps</li>
+                </ul>
+<pre><code class="js">
+  new THREE.MeshPhongMaterial({
+    map: new THREE.TextureLoader().load('./bitmap.jpg'),
+    alphaMap: new THREE.TextureLoader().load('./alphamap.jpg'),
+    transparent: true
+  })
+
+</code></pre>
+            </div>
+            <div class="subsection">
+                <ul>
+                    <li>Bump maps</li>
+                </ul>
+<pre><code class="js">
+  new THREE.MeshPhongMaterial({
+    map: new THREE.TextureLoader().load('./bitmap.jpg'),
+    bumpMap: new THREE.TextureLoader().load('./bumpmap.jpg'),
+    bumpScale: 5
+  })
+
+</code></pre>
+            </div>
+            <div class="subsection">
+                <ul>
+                    <li>Specular maps</li>
+                </ul>
+<pre><code class="js">
+  new THREE.MeshPhongMaterial({
+    map: new THREE.TextureLoader().load('./bitmap.jpg'),
+    specularMap: new THREE.TextureLoader().load('./specularmap.jpg')
+  })
+
+</code></pre>
+            </div>
+            <div class="subsection always-invisible"></div>
+        </div>
+    </section>
+    <section>
+        <iframe data-src="http://dan.nea.me/pisphere" width="100%" height="100%" wmode="transparent"></iframe>
+        <div class="content">
+            <div class="subsection">
+                <ul>
+                    <li>LOD</li>
+                </ul>
+<pre><code class="js">
+  const lod = new THREE.LOD()
+
+  const earth = createEarth()
+  const country = createCountry()
+  const county = createCounty()
+  const city = createCity()
+  const street = createStreet()
+
+  lod.addLevel(earth, 100)
+  lod.addLevel(country, 45)
+  lod.addLevel(county, 42)
+  lod.addLevel(city, 41)
+  lod.addLevel(street, 40.1)
+
+  scene.add(lod)
+</code></pre>
+            </div>
+            <div class="subsection always-invisible"></div>
+        </div>
+    </section>
+    <section>
+      <iframe data-src="./03-materials/video.html" width="100%" height="100%" wmode="transparent"></iframe>
+        <div class="content">
+            <div class="subsection">
+                <ul>
+                    <li>Video as a texture</li>
+                </ul>
+<pre><code class="js">
+  const video = document.getElementById('video')
+  video.src = 'video.mp4'
+  video.load()
+  video.play()
+
+  const texture = new THREE.VideoTexture(video)
+  texture.format = THREE.RGBFormat
+
+  new THREE.Mesh(
+    new THREE.BoxGeometry(32, 21, 21),
+    new THREE.MeshPhongMaterial({ map: texture })
+  )
+</code></pre>
+            </div>
+            <div class="subsection always-invisible"></div>
+        </div>
+    </section>
+    <section>
+      <iframe data-src="./03-materials/reflection.html" width="100%" height="100%" wmode="transparent"></iframe>
+        <div class="content">
+            <div class="subsection">
+                <ul>
+                    <li>Camera as a texture, reflection</li>
+                </ul>
+<pre><code class="js">
+  const renderTarget = new THREE.WebGLRenderTarget(1024, 1024, { format: THREE.RGBFormat } )
+
+  scene.add(new THREE.Mesh(
+    new THREE.PlaneGeometry(100, 100),
+    new THREE.MeshPhongMaterial({ map: renderTarget.texture, side: THREE.BackSide })
+  ))
+
+  const animate = () => {
+    requestAnimationFrame(animate)
+    renderer.render(scene, reflectionCamera, renderTarget)
+    renderer.render(scene, camera)
+  }
+</code></pre>
+                </div>
+                <div class="subsection always-invisible"></div>
+            </div>
+        </div>
+    </section>
+
+    <section class="intro">
+        <h2>Effects and postprocessing</h2>
+    </section>
+    <section>
+        <iframe data-src="./04-postprocessing/ascii.html" width="100%" height="100%" wmode="transparent"></iframe>
+        <div class="content">
+            <div class="subsection">
+                <ul>
+                    <li>Ascii</li>
+                </ul>
+<pre><code class="js">
+  const effect = new THREE.AsciiEffect(renderer, ' .:-+*=%@#')
+  effect.setSize(window.innerWidth, window.innerHeight)
+  effect.domElement.style.color = 'white'
+  effect.domElement.style.backgroundColor = 'black'
+
+  const animate = () => {
+    ...
+    effect.render(scene, camera)
+  }
+
+  document.body.appendChild(effect.domElement)
+
+</code></pre>
+                </div>
+                <div class="subsection always-invisible"></div>
+            </div>
+        </div>
+    </section>
+    <section>
+        <iframe data-src="./04-postprocessing/glitch.html" width="100%" height="100%" wmode="transparent"></iframe>
+        <div class="content">
+          <div class="subsection">
+              <ul>
+                  <li>Glitch</li>
+              </ul>
+<pre><code class="js">
+  const composer = new THREE.EffectComposer(renderer)
+  composer.addPass(new THREE.RenderPass(scene, camera))
+
+  const glitchPass = new THREE.GlitchPass()
+  glitchPass.renderToScreen = true
+  composer.addPass(glitchPass)
+
+  const animate = () => {
+    ...
+    composer.render()
+  }
+
+</code></pre>
+          </div>
+          <div class="subsection always-invisible"></div>
+        </div>
+    </section>
+
+    <section class="intro">
+        <h2>Algorithms</h2>
+    </section>
+    <section>
+        <iframe data-src="./geometry/index.html" width="100%" height="100%" wmode="transparent"></iframe>
+        <div class="content">
+            <div class="subsection">
+                <ul>
+                    <li>Marching Cubes</li>
+                </ul>
+            </div>
+            <div class="subsection">
+                <ul>
+                    <li>Refraction</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section class="intro">
+        <h2>Fin</h2>
+        <h3>Dan Neame <a href="https://twitter.com/cham">@cham</a></h3>
+        <h3><a href="github.com/cham/async-threejs2">github.com/cham/async-threejs2</a> <a href="http://dan.nea.me">dan.nea.me</a></h3>
+    </section>
+
+
+    <script src="highlight.min.js"></script>
+    <script src="slideshow.js"></script>
+  </body>
+</html>
