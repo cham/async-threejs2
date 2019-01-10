@@ -1,0 +1,38 @@
+#metaballs-vis {
+  background: radial-gradient(#568c97, #2a3d41 90%);
+  width: 800px;
+  height: 600px;
+  position: relative;
+}
+.marker {
+  position: absolute;
+  width: 4vmin;
+  height: 4vmin;
+  background-size: contain;
+  cursor: pointer;
+}
+.markertype-0 { background-image: url(targets/about-out.png); }
+.markertype-0:hover { background-image: url(targets/about-over.png); }
+.markertype-1 { background-image: url(targets/science-out.png); }
+.markertype-1:hover { background-image: url(targets/science-over.png); }
+.markertype-2 { background-image: url(targets/pipeline-out.png); }
+.markertype-2:hover { background-image: url(targets/pipeline-over.png); }
+.markertype-3 { background-image: url(targets/team-out.png); }
+.markertype-3:hover { background-image: url(targets/team-over.png); }
+.markertype-4 { background-image: url(targets/news-out.png); }
+.markertype-4:hover { background-image: url(targets/news-over.png); }
+.markertype-5 { background-image: url(targets/contact-out.png); }
+.markertype-5:hover { background-image: url(targets/contact-over.png); }
+.hidden {
+  display: none;
+}
+.metaballs-modal {
+  position: absolute;
+  width: 200px;
+  height: 75px;
+  background: #313036;
+  z-index: 1;
+}
+.metaballs-modal--header {
+  color: #fff;
+}

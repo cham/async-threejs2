@@ -99,13 +99,10 @@
   <body>
 
     <section class="intro">
-        <h2>Learning Three.js</h2>
+        <h2>WebGL with Three.js</h2>
         <h3>Dan Neame <a href="https://twitter.com/cham">@cham</a></h3>
-        <h3><a href="github.com/cham/async-threejs">github.com/cham/async-threejs</a> <a href="http://dan.nea.me">dan.nea.me</a></h3>
-    </section>
-
-    <section class="intro">
-        <h2>Who am I?</h2>
+        <h3><a href="https://github.com/cham/async-threejs2">https://github.com/cham/async-threejs2</a></h3>
+        <h3><a href="http://dan.nea.me">http://dan.nea.me</a></h3>
     </section>
     <section>
         <iframe data-src="http://dan.nea.me" width="100%" height="100%" wmode="transparent"></iframe>
@@ -133,7 +130,6 @@
                     <li>Three.js is a JavaScript library that makes working with WebGL simpler</li>
                     <li>It gives you a higher abstraction over raw WebGL code</li>
                     <li>This allows you to work with Spheres and Cubes instead of Vertices and Matrixes</li>
-                    <li>This means you can spend more time working on the visualisation or application you want to build</li>
                 </ul>
             </div>
             <div class="subsection">
@@ -204,6 +200,7 @@
     )
 </code></pre>
             </div>
+            <div class="subsection always-invisible"></div>
             <div class="subsection">
                 <ul>
                     <li>FPS counter</li>
@@ -301,11 +298,47 @@
                     <li>Vertices, edges</li>
                 </ul>
             </div>
+            <div class="subsection">
+                <ul>
+                  <li>Vertices, edges</li>
+                  <li>A Vertex is a point in 3D space</li>
+                </ul>
+            </div>
+            <div class="subsection">
+                <ul>
+                  <li>Vertices, edges</li>
+                  <li>A Vertex is a point in 3D space</li>
+                  <li>An Edge is a line segment that connects two vertices</li>
+                </ul>
+            </div>
+            <div class="subsection">
+                <ul>
+                  <li>Vertices, edges</li>
+                  <li>A Vertex is a point in 3D space</li>
+                  <li>An Edge is a line segment that connects two vertices</li>
+                  <li>Three vertices and three Edges create a Face</li>
+                </ul>
+            </div>
+            <div class="subsection">
+                <ul>
+                  <li>Vertices, edges</li>
+                  <li>A Vertex is a point in 3D space</li>
+                  <li>An Edge is a line segment that connects two vertices</li>
+                  <li>Three vertices and three Edges create a Face</li>
+                  <li>Typically, objects are composed of multiple Face3s</li>
+                </ul>
+            </div>
+            <div class="subsection always-invisible"></div>
         </div>
     </section>
     <section>
         <iframe data-src="./02-geometry/loading-objects.html" width="100%" height="100%" wmode="transparent"></iframe>
         <div class="content">
+            <div class="subsection">
+                <ul>
+                    <li>Loading objects</li>
+                </ul>
+            </div>
             <div class="subsection">
                 <ul>
                     <li>Loading objects</li>
@@ -324,6 +357,7 @@
       })
     }
   )
+
 </code></pre>
             </div>
             <div class="subsection always-invisible"></div>
@@ -332,6 +366,11 @@
     <section>
         <iframe data-src="http://dan.nea.me/demos/terrain/" width="100%" height="100%" wmode="transparent"></iframe>
         <div class="content">
+            <div class="subsection">
+                <ul>
+                  <li>Manipulating vertices</li>
+                </ul>
+            </div>
             <div class="subsection">
                 <ul>
                     <li>Manipulating vertices</li>
@@ -390,6 +429,7 @@
             </div>
             <div class="subsection">
                 <ul>
+                    <li>MP3 visualiser</li>
                     <li>Read in audio and stream the waveform data</li>
                 </ul>
 <pre><code class="js">
@@ -421,41 +461,9 @@
 
 </code></pre>
         </div>
-        <div class="subsection">
-            <ul>
-                <li>Create geometry from a regular grid</li>
-            </ul>
-<pre><code class="js">
-  const mesh = new THREE.Mesh(
-    new THREE.Geometry(),
-    new THREE.MeshLambertMaterial({ color: 0xCC0000, side: THREE.DoubleSide })
-  )
-
-  const addFace = (geometry, bottomLeftVertex, topRightVertex) => {
-    geometry.faces.push(new THREE.Face3(bottomLeftVertex, bottomLeftVertex+1, topRightVertex))
-    geometry.faces.push(new THREE.Face3(topRightVertex, topRightVertex-1, bottomLeftVertex))
-  }
-
-  for (let i = 0; i < planeSize; i++) {
-    for (let j = 0; j < planeSize; j++) {
-      mesh.geometry.vertices.push(new THREE.Vector3(j, 0, i));
-    }
-  }
-  for (let i = 0; i < planeSize - 1; i++) {
-    for (let j = 0; j < planeSize - 1; j++) {
-      let rowOffset = i * planeSize
-      addFace(mesh.geometry, rowOffset + j, rowOffset + planeSize + j + 1)
-    }
-  }
-  mesh.castShadow = true
-  mesh.receiveShadow = true
-  mesh.geometry.computeFaceNormals()
-  scene.add(mesh)
-
-</code></pre>
-    </div>
     <div class="subsection">
         <ul>
+            <li>MP3 visualiser</li>
             <li>Apply audio frame to first row of vertices on the geometry</li>
         </ul>
 <pre><code class="js">
@@ -473,6 +481,7 @@
       </div>
       <div class="subsection">
           <ul>
+              <li>MP3 visualiser</li>
               <li>Copy the values down the rows of the geometry</li>
           </ul>
 <pre><code class="js">
@@ -580,7 +589,12 @@
         <div class="content">
             <div class="subsection">
                 <ul>
-                    <li>LOD</li>
+                    <li>LOD - Level Of Detail</li>
+                </ul>
+            </div>
+            <div class="subsection">
+                <ul>
+                    <li>LOD - Level Of Detail</li>
                 </ul>
 <pre><code class="js">
   const lod = new THREE.LOD()
@@ -591,11 +605,11 @@
   const city = createCity()
   const street = createStreet()
 
-  lod.addLevel(earth, 100)
-  lod.addLevel(country, 45)
-  lod.addLevel(county, 42)
-  lod.addLevel(city, 41)
-  lod.addLevel(street, 40.1)
+  lod.addLevel(earth, 50)
+  lod.addLevel(country, 5)
+  lod.addLevel(county, 2)
+  lod.addLevel(city, 1)
+  lod.addLevel(street, 0.1)
 
   scene.add(lod)
 </code></pre>
@@ -610,8 +624,13 @@
                 <ul>
                     <li>Video as a texture</li>
                 </ul>
+            </div>
+            <div class="subsection">
+                <ul>
+                    <li>Video as a texture</li>
+                </ul>
 <pre><code class="js">
-  const video = document.getElementById('video')
+  const video = document.createElement('video')
   video.src = 'video.mp4'
   video.load()
   video.play()
@@ -619,10 +638,11 @@
   const texture = new THREE.VideoTexture(video)
   texture.format = THREE.RGBFormat
 
-  new THREE.Mesh(
+  scene.add(new THREE.Mesh(
     new THREE.BoxGeometry(32, 21, 21),
     new THREE.MeshPhongMaterial({ map: texture })
-  )
+  ))
+
 </code></pre>
             </div>
             <div class="subsection always-invisible"></div>
@@ -633,21 +653,34 @@
         <div class="content">
             <div class="subsection">
                 <ul>
-                    <li>Camera as a texture, reflection</li>
+                    <li>Reflection</li>
+                </ul>
+            </div>
+            <div class="subsection">
+                <ul>
+                  <li>Reflection</li>
+                  <li>Camera as a texture</li>
                 </ul>
 <pre><code class="js">
+  const reflectionCamera = new THREE.PerspectiveCamera(40, window.innerWidth / window.innerHeight, 1, 20000)
+  reflectionCamera.position.set(0, -100, 0)
+  reflectionCamera.lookAt(0, 0, 0)
+
   const renderTarget = new THREE.WebGLRenderTarget(1024, 1024, { format: THREE.RGBFormat } )
 
-  scene.add(new THREE.Mesh(
+  const floorMesh = new THREE.Mesh(
     new THREE.PlaneGeometry(100, 100),
     new THREE.MeshPhongMaterial({ map: renderTarget.texture, side: THREE.BackSide })
-  ))
+  )
+  floorMesh.rotation.x = -Math.PI / 2
+  scene.add(floorMesh)
 
   const animate = () => {
     requestAnimationFrame(animate)
     renderer.render(scene, reflectionCamera, renderTarget)
     renderer.render(scene, camera)
   }
+
 </code></pre>
                 </div>
                 <div class="subsection always-invisible"></div>
@@ -661,6 +694,11 @@
     <section>
         <iframe data-src="./04-postprocessing/ascii.html" width="100%" height="100%" wmode="transparent"></iframe>
         <div class="content">
+            <div class="subsection">
+                <ul>
+                    <li>Ascii</li>
+                </ul>
+            </div>
             <div class="subsection">
                 <ul>
                     <li>Ascii</li>
@@ -691,6 +729,11 @@
               <ul>
                   <li>Glitch</li>
               </ul>
+          </div>
+          <div class="subsection">
+              <ul>
+                  <li>Glitch</li>
+              </ul>
 <pre><code class="js">
   const composer = new THREE.EffectComposer(renderer)
   composer.addPass(new THREE.RenderPass(scene, camera))
@@ -714,7 +757,7 @@
         <h2>Algorithms</h2>
     </section>
     <section>
-        <iframe data-src="./geometry/index.html" width="100%" height="100%" wmode="transparent"></iframe>
+        <iframe data-src="./05-algorithms/marchingcubes.html" width="100%" height="100%" wmode="transparent"></iframe>
         <div class="content">
             <div class="subsection">
                 <ul>
@@ -723,16 +766,78 @@
             </div>
             <div class="subsection">
                 <ul>
+                    <li>Marching Cubes</li>
+                </ul>
+<pre><code class="js">
+  const effect = new MarchingCubes(config.resolution, material, config.enableUVs, config.enableColors)
+  effect.init(config.resolution)
+  effect.isolation = config.isolation
+
+  const balls = [
+    new THREE.Vector3(0, 0, 0),
+    new THREE.Vector3(0, 0, 0),
+    new THREE.Vector3(0, 0, 0),
+    new THREE.Vector3(0, 0, 0),
+    new THREE.Vector3(0, 0, 0)
+  ]
+
+  const attractionStrength = 12
+  const subtractiveStrength = 0.9
+
+  const updateCubes = (t) => {
+    requestAnimationFrame(updateCubes)
+    effect.reset()
+
+    balls.forEach((ball, i) => {
+      const movement = someEasingFunction(t, i)
+      ball.set(movement)
+      effect.addBall(ball.x, ball.y, ball.z, config.attractionStrength, config.subtractiveStrength)
+    })
+  }
+  requestAnimationFrame(updateCubes)
+
+</code></pre>
+            </div>
+            <div class="subsection always-invisible"></div>
+        </div>
+    </section>
+    <section>
+        <iframe data-src="./05-algorithms/refraction.html" width="100%" height="100%" wmode="transparent"></iframe>
+        <div class="content">
+            <div class="subsection">
+                <ul>
                     <li>Refraction</li>
                 </ul>
             </div>
+            <div class="subsection">
+                <ul>
+                    <li>Refraction</li>
+                </ul>
+<pre><code class="js">
+  const refractor = new THREE.Refractor(
+    new THREE.PlaneBufferGeometry(20, 20),
+    {
+      color: 0XAAAAAA,
+      textureWidth: 1024,
+      textureHeight: 1024,
+      shader: THREE.WaterRefractionShader
+    }
+  )
+  const waterTexture = new THREE.TextureLoader().load('waterdudv.jpg')
+  waterTexture.wrapS = waterTexture.wrapT = THREE.RepeatWrapping
+  refractor.material.uniforms.tDudv.value = waterTexture
+  scene.add(refractor)
+</code></pre>
+            </div>
+            <div class="subsection always-invisible"></div>
         </div>
     </section>
 
     <section class="intro">
         <h2>Fin</h2>
         <h3>Dan Neame <a href="https://twitter.com/cham">@cham</a></h3>
-        <h3><a href="github.com/cham/async-threejs2">github.com/cham/async-threejs2</a> <a href="http://dan.nea.me">dan.nea.me</a></h3>
+        <h3><a href="https://github.com/cham/async-threejs2">https://github.com/cham/async-threejs2</a></h3>
+        <h3><a href="http://dan.nea.me">http://dan.nea.me</a></h3>
     </section>
 
 
