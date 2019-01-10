@@ -39,7 +39,6 @@ const glitchPass = new THREE.GlitchPass()
 glitchPass.renderToScreen = true
 composer.addPass(glitchPass)
 
-
 function animate (t) {
   requestAnimationFrame(animate)
   const speed = 0.0005
